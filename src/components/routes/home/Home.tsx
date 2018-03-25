@@ -112,7 +112,7 @@ export default class Home extends React.Component<any, any> {
                     render={({ subscribe, status, message }) => (
                         <Layer id="contact" fill flex className="mh1000px">
                             <Layer flexCenter className={status !== "sending" && status !== "success" ? "h100px mtb100 w1000px m0auto" : "h100 mtb100 w1000px m0auto"}>
-                                {status !== "sending" && status !== "success" ? <div className="animated fadeInUp"> <h2 className="super text-right">Hungry for more? <strong style={{ color: '#00af60' }}>contacting us!</strong></h2></div> : <div />}
+                                {status !== "sending" && status !== "success" ? <div className="animated fadeInUp"> <h2 className="super text-right">Hungry for more? <strong style={{ color: '#00af60' }}>Contact us!</strong></h2></div> : <div />}
                                 {status === "sending" ? <div className="animated fadeInUp"><h2 className="super text-right"><i className="fa fa-circle-o-notch fa-spin" /> Sending <strong style={{ color: '#00af60' }}>from</strong></h2></div> : <div />}
                                 {status === "success" ? <div className="animated fadeInUp"><h2 className="super text-right">Form sent!<strong style={{ color: '#00af60' }}> Don't forget to follow us on...</strong></h2></div> : <div />}
                                 {status === "success" ?
