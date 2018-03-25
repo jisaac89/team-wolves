@@ -40,7 +40,7 @@ class MenuPane extends React.Component<IMenuPaneProps, any> {
                     <Layer scrollY flexCenter={!appStore.mobile} fill className="text-left pt50" theme="light">
                         <div className="p20 center-width">
                             <Toolbar block className="center-width text-left" spacing vertical>
-                                <h2 className="super text-left mb10 h60px">
+                                <h2 className="super">
                                     <Emerge delay={100} if={appStore.menu} enter="fadeInUp">
                                         <a className="dinblock mr20 a1 "  > Home</a>
                                         <a className="dinblock mr20 a2" >About</a>
@@ -48,7 +48,6 @@ class MenuPane extends React.Component<IMenuPaneProps, any> {
                                         <a className="dinblock mr20 a4" >Contact</a>
                                     </Emerge>
                                 </h2>
-
                             </Toolbar>
                         </div>
                     </Layer>
