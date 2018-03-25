@@ -1,0 +1,16 @@
+node_modules/
+typings
+recoil/src/**/*.tsx
+recoil/src/**/*.ts
+recoil/docs/
+recoil/dist/docs/
+recoil
+public/bundle
+.vscode
+*.log
+*.tgz
+.babelrc
+.eslintrc
+.gitignore
+.jshintrc
+.npmignore
