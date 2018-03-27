@@ -24,9 +24,11 @@ export default class Home extends React.Component<any, any> {
         this.props.appStore.gotoScrollState();
     }
 
-    submitForm(subscribe) {
+    submitForm(subscribe, event) {
+        event.preventDefault();
         let data = this.props.contactStore.form;
         subscribe(data);
+        return false;
     }
 
     componentDidMount() {
@@ -61,7 +63,7 @@ export default class Home extends React.Component<any, any> {
                     <div className="posrel dopeback animated fadeInUp pt40 text-center">
                         <Emerge delay={1000} triggerOnce enter="slideInUp">
                             <div />
-                            <img className="z2 home-img-1 text-center" src="/static/imgs/orange.png" />
+                            <img className="z2 home-img-1 w100 text-center" src="/static/imgs/orange2.png" />
                         </Emerge>
                     </div>
                 </Layer>
@@ -112,7 +114,7 @@ export default class Home extends React.Component<any, any> {
                     render={({ subscribe, status, message }) => (
                         <Layer id="contact" fill flex className="mh1000px">
                             <Layer flexCenter className={status !== "sending" && status !== "success" ? "h100px mtb100 w1000px m0auto" : "h100 mtb100 w1000px m0auto"}>
-                                {status !== "sending" && status !== "success" ? <div className="animated fadeInUp"> <h2 className="super text-right">Hungry for more? <strong style={{ color: '#00af60' }}>Contact us!</strong></h2></div> : <div />}
+                                {status !== "sending" && status !== "success" ? <div className="animated fadeInUp"> <h2 className="super text-right">Hungry for more? <strong style={{ color: '#00af60' }}>Contact us</strong></h2></div> : <div />}
                                 {status === "sending" ? <div className="animated fadeInUp"><h2 className="super text-right"><i className="fa fa-circle-o-notch fa-spin" /> Submitting <strong style={{ color: '#00af60' }}>form</strong></h2></div> : <div />}
                                 {status === "success" ? <div className="animated fadeInUp"><h2 className="super text-right">Sent!<strong style={{ color: '#00af60' }}> Don't forget to follow us =)</strong></h2></div> : <div />}
                                 {status === "success" ?
@@ -128,26 +130,23 @@ export default class Home extends React.Component<any, any> {
                             </Layer>
                             <Layer flexCenter fill className={status !== "sending" && status !== "success" ? "ptb40 dopeback3 h100" : "ptb0 dopeback3 h0"}>
                                 <Layer className="w1000px text-center m0auto">
-
-
                                     <Open openToHeight={'300px'} if={status !== "sending" && status !== "success"} className={"ps20"}>
-                                        <Toolbar block flex>
-                                            <Input onChange={this.onChange.bind(this, 'FNAME')} theme="success" advanced material block size={this.props.appStore.mobile ? "small" : "large"} title="Full name" className="mr20" />
-                                            <Input onChange={this.onChange.bind(this, 'EMAIL')} theme="success" advanced material block size={this.props.appStore.mobile ? "small" : "large"} title="Email" />
-                                        </Toolbar>
-                                        <Toolbar block flex spacing className="mt20">
-                                            <Input onChange={this.onChange.bind(this, 'PHONE')} theme="success" advanced material block size={this.props.appStore.mobile ? "small" : "large"} title="Phone Number" className="mr20" />
-                                            <Input onChange={this.onChange.bind(this, 'COUNTRY')} theme="success" advanced material block size={this.props.appStore.mobile ? "small" : "large"} title="Country" />
-                                        </Toolbar>
-                                        <Toolbar block flex spacing className="mt20">
-                                            <Input onChange={this.onChange.bind(this, 'COMPANY')} theme="success" advanced material block size={this.props.appStore.mobile ? "small" : "large"} title="Company" />
-                                        </Toolbar>
-                                        <Toolbar block flex spacing className="mt20">
-                                            <Input onChange={this.onChange.bind(this, 'IDEA')} theme="success" advanced material block size={this.props.appStore.mobile ? "small" : "large"} title="Idea" />
-                                        </Toolbar>
-                                        <Toolbar block spacing className="mtb20">
-                                            <Button disabled={status === "success"} advanced onClick={this.submitForm.bind(this, subscribe)} theme="success" right size={this.props.appStore.mobile ? "small" : "large"} >Submit Your Message</Button>
-                                        </Toolbar>
+                                        <form>
+                                            <Toolbar block flex>
+                                                <Input onChange={this.onChange.bind(this, 'FNAME')} theme="success" advanced material block size={this.props.appStore.mobile ? "small" : "xlarge"} title="Full name" className="mr20" />
+                                                <Input onChange={this.onChange.bind(this, 'EMAIL')} theme="success" advanced material block size={this.props.appStore.mobile ? "small" : "xlarge"} title="Email" />
+                                            </Toolbar>
+                                            <Toolbar block flex spacing className="mt20">
+                                                <Input onChange={this.onChange.bind(this, 'PHONE')} theme="success" advanced material block size={this.props.appStore.mobile ? "small" : "xlarge"} title="Phone Number" className="mr20" />
+                                                <Input onChange={this.onChange.bind(this, 'COMPANY')} theme="success" advanced material block size={this.props.appStore.mobile ? "small" : "xlarge"} title="Company" />
+                                            </Toolbar>
+                                            <Toolbar block flex spacing className="mt20">
+                                                <Input onChange={this.onChange.bind(this, 'IDEA')} theme="success" advanced material block size={this.props.appStore.mobile ? "small" : "xlarge"} title="Idea" />
+                                            </Toolbar>
+                                            <Toolbar block spacing className="mt20">
+                                                <Button submit disabled={status === "success"} advanced onClick={this.submitForm.bind(this, subscribe)} theme="success" right size={this.props.appStore.mobile ? "small" : "xlarge"} >Submit Your Message</Button>
+                                            </Toolbar>
+                                        </form>
                                     </Open>
 
                                 </Layer>
