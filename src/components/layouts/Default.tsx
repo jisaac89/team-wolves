@@ -40,6 +40,15 @@ class Default extends React.Component<any, any>{
                 <Header />
                 <Layer afterAnimate={this.gotoScrollState.bind(this)} scrollIf={x} scrollToId={x ? 'contact' : ''} className="center-width" scrollY fill flexCenter={centerContent}>
                     {this.props.children}
+                    <Layer className="e-NightMode p10">
+                        <Toolbar block textCenter spacing className="w1000px center-width">
+                            <Button left simple>© 2018 Wulvs</Button>
+                            <Button icon="twitter" />
+                            <Button icon="linkedin" />
+                            <Button icon="facebook" />
+                            <Button right simple>Privacy Policy</Button>
+                        </Toolbar>
+                    </Layer>
                 </Layer>
                 {actions ? (
                     <Toolbar textCenter flex block className="border-top p10">

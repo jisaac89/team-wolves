@@ -151,15 +151,7 @@ export default class Home extends React.Component<any, any> {
 
                                 </Layer>
                             </Layer>
-                            <Layer className="e-NightMode p10">
-                                <Toolbar block textCenter spacing className="w1000px center-width">
-                                    <Button left simple>© 2018 Viral Penguin</Button>
-                                    <Button icon="twitter" />
-                                    <Button icon="linkedin" />
-                                    <Button icon="facebook" />
-                                    <Button right simple>Privacy Policy</Button>
-                                </Toolbar>
-                            </Layer>
+
 
                             <div className="mouse">
                                 <div className="roll"></div>

@@ -25,7 +25,7 @@ export default class Header extends React.Component<any, any> {
         return (
             <Open if={true} className="z5" openToHeight={"53px"}>
                 <Toolbar block className="p10">
-                    <img height={40} width={40} src="http://www.i2clipart.com/cliparts/1/c/d/1/clipart-wolf-emblem-256x256-1cd1.png" /> <h2 className="wulvs">Wulvs</h2>
+                    <img height={40} width={40} src="http://www.i2clipart.com/cliparts/1/c/d/1/clipart-wolf-emblem-256x256-1cd1.png" /> <h2 className="wulvs">Fourminds</h2>
                     <Button onClick={this.toggleNightMode.bind(this)} simple right icon="moon-o"></Button>
                     <Button icon="comment" simple advanced checked={this.props.appStore.scrollState} right onClick={this.gotoScrollState.bind(this)} ></Button>
                 </Toolbar>
