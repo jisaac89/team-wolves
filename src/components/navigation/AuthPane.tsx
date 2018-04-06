@@ -20,7 +20,7 @@ export default class AuthPane extends React.Component<IAuthPaneProps, any> {
 
         return (
             <SlideIn className="z4" if={!authStore.isAuthenticated} from="top" fill>
-                <Layer fill flex theme="e-NightMode">
+                <Layer fill flex theme="dark">
                     <Layer fill flex>
                         <Layer fill flex flexCenter className="text-center pt50">
                             <Emerge enter="fadeIn" if={appStore.auth}>

@@ -3,7 +3,6 @@ export interface IAppStore {
     mobile: boolean;
     menu: boolean;
     loading: boolean;
-    token: any;
     toggleAuth(): void;
     toggleMenu(): void;
     auth?: boolean;

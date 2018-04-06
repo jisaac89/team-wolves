@@ -10,10 +10,6 @@ import * as passwordHash from 'password-hash';
 
 import { IUser } from '../interfaces/data/IUser';
 
-import userStore from './UserStore';
-
-import api from '../api';
-
 import { setAccessToken, getAccessToken, auth0login, logout, isLoggedIn } from '../utils/AuthService'
 
 import { User } from '../model/UserModel';

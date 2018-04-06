@@ -14,29 +14,11 @@ export class AppStore implements IAppStore {
     @observable auth: boolean = true;
     @observable scrollState: boolean = false;
     //
-    @observable appName = 'Prescription Prototype';
+    @observable appName = 'FourMindes';
     @observable appLoaded = false;
-    @observable token = window.localStorage.getItem('access_token');
-
-    constructor() {
-        reaction(
-            () => this.token,
-            token => {
-                if (token) {
-                    window.localStorage.setItem('access_token', token);
-                } else {
-                    window.localStorage.removeItem('access_token');
-                }
-            }
-        );
-    }
 
     gotoScrollState() {
         this.scrollState = !this.scrollState;
-    }
-
-    @action setToken(token) {
-        this.token = token;
     }
 
     @action setAppLoaded() {
