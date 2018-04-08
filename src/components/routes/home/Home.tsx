@@ -18,7 +18,9 @@ let options = {
     scrollBar: false,
     navigation: true,
     verticalAlign: false,
-    arrowNavigation: true
+    arrowNavigation: true,
+    autoScrolling: false,
+    dragAndMove: true
 }
 // simplest form (only email)
 const SimpleForm = () => <MailchimpSubscribe url={url} />
@@ -62,7 +64,7 @@ export default class Home extends React.Component<any, any> {
             console.log(this.state.index)
         })
 
-        // this.props.appStore.gotoHomeSlideIndex(anchorLink.activeSection.toString);
+        this.props.appStore.gotoHomeSlideIndex(anchorLink.activeSection);
     }
 
     render() {
@@ -96,26 +98,24 @@ export default class Home extends React.Component<any, any> {
                                 <MailchimpSubscribe
                                     url={url}
                                     render={({ subscribe, status, message }) => (
-                                        <Emerge if={this.state.index === 'slide-3'} delay={300} exit="fadeOut" enter="fadeIn">
-                                            <div />
-                                            <Layer flex>
-                                                <Layer flexCenter className={status !== "sending" && status !== "success" ? "h100px w100 m0auto" : "h100 w100 m0auto"}>
-                                                    <Emerge overflow>
-                                                        {status !== "sending" && status !== "success" ? <div className="animated fadeInUp"> <h2 className="super text-left mb20">Let's get started! <strong style={{ color: '#00af60' }}>Contact us</strong></h2></div> : <div />}
-                                                        {status === "sending" ? <div className="animated fadeInUp"><h2 className="super text-left mb20"><i className="fa fa-circle-o-notch fa-spin" /> Submitting <strong style={{ color: '#00af60' }}>form</strong></h2></div> : <div />}
-                                                        {status === "success" ? <div className="animated fadeInUp"><h2 className="super text-left mb20">Sent!<strong style={{ color: '#00af60' }}> Don't forget to follow us =)</strong></h2></div> : <div />}
-                                                        {status === "success" ?
-                                                            <Toolbar className="mt20 text-left posabs">
-                                                                <Emerge>
-                                                                    <div />
-                                                                    <div className="dinblock"><Button size="xlarge" className="floatL " simple icon="facebook" /></div>
-                                                                    <div className="dinblock"><Button size="xlarge" className="floatL " simple icon="linkedin" /></div>
-                                                                    <div className="dinblock"><Button size="xlarge" className="floatL " simple icon="twitter" /></div>
-                                                                </Emerge>
-                                                            </Toolbar> : <div />}
 
-                                                    </Emerge>
-                                                </Layer>
+                                        <Layer flex>
+                                            <Layer flexCenter className={status !== "sending" && status !== "success" ? "h100px w100 m0auto" : "h100 w100 m0auto"}>
+                                                {this.props.appStore.homeSlideIndex === 3 && status !== "sending" && status !== "success" ? <div className="animated fadeInUp"> <h2 className="super text-left mb20">Let's get started! <strong style={{ color: '#00af60' }}>Contact us</strong></h2></div> : <div />}
+                                                {this.props.appStore.homeSlideIndex === 3 && status === "sending" ? <div className="animated fadeInUp"><h2 className="super text-left mb20"><i className="fa fa-circle-o-notch fa-spin" /> Submitting <strong style={{ color: '#00af60' }}>form</strong></h2></div> : <div />}
+                                                {this.props.appStore.homeSlideIndex === 3 && status === "success" ? <div className="animated fadeInUp"><h2 className="super text-left mb20">Sent!<strong style={{ color: '#00af60' }}> Don't forget to follow us =)</strong></h2></div> : <div />}
+                                                {this.props.appStore.homeSlideIndex === 3 && status === "success" ?
+                                                    <Toolbar className="mt20 text-left posabs">
+                                                        <Emerge>
+                                                            <div />
+                                                            <div className="dinblock"><Button size="xlarge" className="floatL " simple icon="facebook" /></div>
+                                                            <div className="dinblock"><Button size="xlarge" className="floatL " simple icon="linkedin" /></div>
+                                                            <div className="dinblock"><Button size="xlarge" className="floatL " simple icon="twitter" /></div>
+                                                        </Emerge>
+                                                    </Toolbar> : <div />}
+
+                                            </Layer>
+                                            {this.props.appStore.homeSlideIndex === 3 ?
                                                 <Layer flexCenter className={status !== "sending" && status !== "success" ? "ptb40 h100" : "ptb0 h0"}>
                                                     <Layer className="w100 text-center m0auto">
                                                         <Open openToHeight={'300px'} if={status !== "sending" && status !== "success"} className={""}>
@@ -139,9 +139,8 @@ export default class Home extends React.Component<any, any> {
 
                                                     </Layer>
                                                 </Layer>
-
-                                            </Layer>
-                                        </Emerge>
+                                                : null}
+                                        </Layer>
                                     )}
                                 />
                             </Layer>
@@ -149,6 +148,8 @@ export default class Home extends React.Component<any, any> {
 
 
                     </SectionsContainer>
+
+                    <a href="#contact" id="contact-btn" className={'s-' + this.props.appStore.homeSlideIndex} />
 
 
                     <Layer className={this.state.index + ' slide'} />

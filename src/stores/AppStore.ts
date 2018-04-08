@@ -17,6 +17,8 @@ export class AppStore implements IAppStore {
     @observable appName = 'FourMindes';
     @observable appLoaded = false;
 
+    @observable homeSlideIndex: number = 0;
+
     gotoScrollState() {
         this.scrollState = !this.scrollState;
     }
@@ -46,6 +48,10 @@ export class AppStore implements IAppStore {
 
     onMobile(isMobile) {
         this.mobile = isMobile;
+    }
+
+    gotoHomeSlideIndex(n) {
+        this.homeSlideIndex = n;
     }
 
 }
