@@ -49,8 +49,6 @@ export default class Entry extends React.Component<IEntryProps, any> {
                         <Route exact path="/" component={Home} />
                         <Route path="/callback" component={Callback} />
                     </Switch>
-                    <LoadingPane />
-                    <MenuPaneRoute />
                 </Recoil>
             </Router>
         )

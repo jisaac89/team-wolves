@@ -74,37 +74,37 @@ export default class Home extends React.Component<any, any> {
 
         return (
             <Default>
-                <Layer fill flex>
+                <Layer fill flex overflow>
 
                     <SectionsContainer {...options} scrollCallback={this.onSlideLeave.bind(this)}>
                         <Section>
                             <Layer flexCenter className={!mobile ? "text-right h100 w500px pull-right mr50" : null}>
-                                <img width={mobile ? "" : "500"} height={mobile ? "329" : "494"} className="text-right lime" src="/static/imgs/lime.png" />
+                                <img width={mobile ? "" : "500"} height={mobile ? "329" : "494"} className="text-right lime animated fadeIn" src="/static/imgs/lime.png" />
                             </Layer>
                         </Section>
                         <Section>
                             <Layer flexCenter className={!mobile ? "text-left h100 w500px pull-left ml50" : null}>
-                                <img width="350" height="600" className="text-left lime" src="/static/imgs/phone.png" />
+                                <img width={!mobile ? "350" : null} height={!mobile ? "600" : null} className="text-left phone" src={mobile ? "/static/imgs/phone1.png" : "/static/imgs/phone.png"} />
                             </Layer>
                         </Section>
                         <Section>
                             <Layer flexCenter className={!mobile ? "text-right h100 w500px pull-right mr50" : null}>
-                                <img width={mobile ? "" : "500"} height={mobile ? "329" : "494"} className="text-right lime" src="/static/imgs/candyo.png" />
+                                <img width={mobile ? "" : "500"} height={mobile ? "329" : "494"} className="text-right donut" src="/static/imgs/candyo.png" />
                             </Layer>
                         </Section>
 
                         <Section>
-                            <Layer flex fill flexCenter className={mobile ? "ps40" : "ps100"}>
+                            <Layer flex fill flexCenter={!mobile} className={mobile ? "p10" : "ps100"}>
                                 <MailchimpSubscribe
                                     url={url}
                                     render={({ subscribe, status, message }) => (
 
                                         <Layer flex>
                                             <Layer flexCenter className={status !== "sending" && status !== "success" ? "h100px w100 m0auto" : "h100 w100 m0auto"}>
-                                                {this.props.appStore.homeSlideIndex === 3 && status !== "sending" && status !== "success" ? <div className="animated fadeInUp"> <h2 className="super text-left mb20">Let's get started! <strong style={{ color: '#00af60' }}>Contact us</strong></h2></div> : <div />}
-                                                {this.props.appStore.homeSlideIndex === 3 && status === "sending" ? <div className="animated fadeInUp"><h2 className="super text-left mb20"><i className="fa fa-circle-o-notch fa-spin" /> Submitting <strong style={{ color: '#00af60' }}>form</strong></h2></div> : <div />}
-                                                {this.props.appStore.homeSlideIndex === 3 && status === "success" ? <div className="animated fadeInUp"><h2 className="super text-left mb20">Sent!<strong style={{ color: '#00af60' }}> Don't forget to follow us =)</strong></h2></div> : <div />}
-                                                {this.props.appStore.homeSlideIndex === 3 && status === "success" ?
+                                                {status !== "sending" && status !== "success" ? <div className="animated fadeInUp"> <h2 className="super text-left mb20">{mobile ? "" : "Let's get started!"}<strong style={{ color: '#00af60' }}>Contact us</strong></h2></div> : <div />}
+                                                {status === "sending" ? <div className="animated fadeInUp"><h2 className="super text-left mb20"><i className="fa fa-circle-o-notch fa-spin" /> Submitting <strong style={{ color: '#00af60' }}>form</strong></h2></div> : <div />}
+                                                {status === "success" ? <div className="animated fadeInUp"><h2 className="super text-left mb20">Sent!<strong style={{ color: '#00af60' }}> follow us =)</strong></h2></div> : <div />}
+                                                {status === "success" ?
                                                     <Toolbar className="mt20 text-left posabs">
                                                         <Emerge>
                                                             <div />
@@ -115,31 +115,29 @@ export default class Home extends React.Component<any, any> {
                                                     </Toolbar> : <div />}
 
                                             </Layer>
-                                            {this.props.appStore.homeSlideIndex === 3 ?
-                                                <Layer flexCenter className={status !== "sending" && status !== "success" ? "ptb40 h100" : "ptb0 h0"}>
-                                                    <Layer className="w100 text-center m0auto">
-                                                        <Open openToHeight={'300px'} if={status !== "sending" && status !== "success"} className={""}>
-                                                            <form>
-                                                                <Toolbar block flex={!mobile} vertical={mobile}>
-                                                                    <Input onChange={this.onChange.bind(this, 'FNAME')} theme="success" advanced material block size={this.props.appStore.mobile ? "default" : "xlarge"} title="Full name" className={mobile ? "mb20 " : "mr20"} />
-                                                                    <Input onChange={this.onChange.bind(this, 'EMAIL')} theme="success" advanced material block size={this.props.appStore.mobile ? "default" : "xlarge"} title="Email" />
-                                                                </Toolbar>
-                                                                <Toolbar block flex={!mobile} vertical={mobile} spacing className="mt20">
-                                                                    <Input onChange={this.onChange.bind(this, 'PHONE')} theme="success" advanced material block size={this.props.appStore.mobile ? "default" : "xlarge"} title="Phone Number" className={mobile ? "mb20 " : "mr20"} />
-                                                                    <Input onChange={this.onChange.bind(this, 'COMPANY')} theme="success" advanced material block size={this.props.appStore.mobile ? "default" : "xlarge"} title="Company" />
-                                                                </Toolbar>
-                                                                <Toolbar block flex={!mobile} vertical={mobile} spacing className="mt20">
-                                                                    <Input onChange={this.onChange.bind(this, 'IDEA')} theme="success" advanced material block size={this.props.appStore.mobile ? "default" : "xlarge"} title="Idea" />
-                                                                </Toolbar>
-                                                                <Toolbar block spacing className="mt20">
-                                                                    <Button submit disabled={status === "success"} advanced onClick={this.submitForm.bind(this, subscribe)} theme="success" right size={this.props.appStore.mobile ? "default" : "xlarge"} >Submit Your Message</Button>
-                                                                </Toolbar>
-                                                            </form>
-                                                        </Open>
+                                            <Layer flexCenter={!mobile} className={status !== "sending" && status !== "success" ? mobile ? "h100" : "ptb40 h100" : "ptb0 h0"}>
+                                                <Layer className="w100 text-center m0auto">
+                                                    <Open openToHeight={'300px'} if={status !== "sending" && status !== "success"} className={""}>
+                                                        <form>
+                                                            <Toolbar block flex={!mobile} vertical={mobile}>
+                                                                <Input onChange={this.onChange.bind(this, 'FNAME')} theme="success" advanced material block size={this.props.appStore.mobile ? "xlarge" : "xlarge"} title="Full name" className={mobile ? "mb20 " : "mr20"} />
+                                                                <Input onChange={this.onChange.bind(this, 'EMAIL')} theme="success" advanced material block size={this.props.appStore.mobile ? "xlarge" : "xlarge"} title="Email" />
+                                                            </Toolbar>
+                                                            <Toolbar block flex={!mobile} vertical={mobile} spacing className="mt20">
+                                                                <Input onChange={this.onChange.bind(this, 'PHONE')} theme="success" advanced material block size={this.props.appStore.mobile ? "xlarge" : "xlarge"} title="Phone Number" className={mobile ? "mb20 " : "mr20"} />
+                                                                <Input onChange={this.onChange.bind(this, 'COMPANY')} theme="success" advanced material block size={this.props.appStore.mobile ? "xlarge" : "xlarge"} title="Company" />
+                                                            </Toolbar>
+                                                            <Toolbar block flex={!mobile} vertical={mobile} spacing className="mt20">
+                                                                <Input onChange={this.onChange.bind(this, 'IDEA')} theme="success" advanced material block size={this.props.appStore.mobile ? "xlarge" : "xlarge"} title="Idea" />
+                                                            </Toolbar>
+                                                            <Toolbar block spacing className="mt20">
+                                                                <Button submit disabled={status === "success"} advanced onClick={this.submitForm.bind(this, subscribe)} theme="success" right size={this.props.appStore.mobile ? "xlarge" : "xlarge"} >Submit Your Message</Button>
+                                                            </Toolbar>
+                                                        </form>
+                                                    </Open>
 
-                                                    </Layer>
                                                 </Layer>
-                                                : null}
+                                            </Layer>
                                         </Layer>
                                     )}
                                 />
@@ -155,11 +153,11 @@ export default class Home extends React.Component<any, any> {
                     <Layer className={this.state.index + ' slide'} />
                     <Layer className={this.state.index + '-overlay slide'} />
 
-                    {this.state.index === 'slide-0' && !mobile ?
-                        <Layer fill flexCenter className="posabs t0 l0 pl100 z1">
-                            <Emerge>
-                                <div className="text-left">
-                                    <h2 className="super mb20 text-left">
+                    {this.state.index === 'slide-0' ?
+                        <Layer fill flexCenter={!mobile} className={!mobile ? "posabs t0 l0 pl100 z1" : "posabs t0 l0 w100 text-center pt50"}>
+                            <Emerge enter="fadeIn">
+                                <div className={!mobile ? "text-left" : "text-center p10"}>
+                                    < h2 className={!mobile ? "super mb20 text-left" : "super text-center"}>
                                         You have a juicy  <strong style={{ color: '#2cb5e8' }} >
                                             <TextLoop speed={2000}>
                                                 <span>idea</span>
@@ -169,43 +167,55 @@ export default class Home extends React.Component<any, any> {
                                         </strong>
 
                                     </h2>
-                                    <h2 className="light text-left mb20">From the next Snapchat to Blockchain app</h2>
+                                    <h2 className={mobile ? "light text-left mb10" : "light text-left mb20"}>From the next Snapchat to Blockchain app</h2>
                                     <Button href="#contact" size={mobile ? "large" : "xlarge"} icon="comment" theme="error"><span>Start by contacting us</span></Button>
                                 </div>
                             </Emerge>
                         </Layer>
-                        : null}
+                        : null
+                    }
 
-                    {this.state.index === 'slide-1' && !mobile ?
-                        <Layer fill flexCenter className="posabs t0 l0 pr100">
-                            <Emerge>
-                                <div className="text-right">
-                                    <h2 className="super mb20 text-right text-white">You need help <strong style={{ color: 'white' }}>
-                                        <TextLoop speed={2000}>
-                                            <span>visualizing</span>
-                                            <span>building</span>
-                                            <span>creating</span>
-                                        </TextLoop></strong> it</h2>
-                                    <h2 className="light text-right text-white mb20">Showcasing investors or clients, slides or pictures isn't going to cut it.</h2>
-                                </div>
-                            </Emerge>
-                        </Layer> : null}
+                    {
+                        this.state.index === 'slide-1' ?
+                            <Layer fill flexCenter={!mobile} className={!mobile ? "posabs t0 l0 pr100 z1" : "posabs t0 l0 w100 text-center pt20 z4"}>
+                                <Emerge enter="fadeIn">
+                                    <div className={!mobile ? "text-right" : "text-center p10"}>
+                                        <h2 className={!mobile ? "super mb20 text-right text-white" : "super mb10 text-center"}>{mobile ? "We" : "You need help"} <strong style={{
+                                            color: mobile ? "rgb(254, 57, 119)" : 'white'
+                                        }}>
+                                            <TextLoop speed={2000}>
+                                                < span > {mobile ? "visualize" : "visualizing"}</span>
+                                                <span>{mobile ? "build" : "building"}</span>
+                                                <span>{mobile ? "create" : "creating"}</span>
+                                            </TextLoop></strong> it</h2>
+                                        {!mobile ? <h2 className={"light text-right text-white mb20"}>Showcasing investors or clients, slides or pictures isn't going to cut it.</h2> : <div />}
+                                    </div>
+                                </Emerge>
+                                {mobile ? <Emerge enter="fadeIn"><h2 className={"shit"}>Slides or pictures isn't going to cut it.</h2></Emerge> : <div />}
+                            </Layer> : null
+                    }
 
-                    {this.state.index === 'slide-2' && !mobile ?
-                        <Layer fill flexCenter className="posabs t0 l0 pl100">
-                            <Emerge>
-                                <div className="text-left">
-                                    <h2 className="super text-left mb20">We build a sweet<strong style={{ color: '#2cb5e8' }}> <TextLoop speed={2000}>
-                                        <span>prototype</span>
-                                        <span>concept</span>
-                                        <span>design</span>
-                                    </TextLoop></strong></h2>
-                                    <h2 className=" text-left light mb20">Showcasing investors or clients, slides or pictures isn't going to cut it.</h2>
-                                </div>
-                            </Emerge>
-                        </Layer> : null}
-
-                </Layer>
+                    {
+                        this.state.index === 'slide-2' ?
+                            <Layer fill flexCenter={!mobile} className={!mobile ? "posabs t0 l0 pl100 z1" : "posabs t0 l0 w100 text-center pt20 z4"}>
+                                <Emerge enter="fadeIn">
+                                    <div className={!mobile ? "text-left" : "text-center p10"}>
+                                        <h2 className={!mobile ? "super mb20 text-left" : "super mb10 text-center"}>{!mobile ? "We build a sweet" : "Building a"}<strong style={{ color: '#2cb5e8' }}> <TextLoop speed={2000}>
+                                            <span>prototype</span>
+                                            <span>concept</span>
+                                            <span>design</span>
+                                        </TextLoop></strong></h2>
+                                        <h2 className=" text-left light mb20">From eCommerce websites to mobile applications. We've got you covered.</h2>
+                                    </div>
+                                </Emerge>
+                            </Layer> : null
+                    }
+                    <div id="top" className={"text-center slide-" + this.state.index}>
+                        <div id="green-wave" className="animated fadeInUp"></div>
+                        <div id="blue-wave" className="animated fadeInUp"></div>
+                        <div id="orange-wave" className="animated fadeInUp"></div>
+                    </div>
+                </Layer >
 
             </Default >
 

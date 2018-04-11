@@ -23,13 +23,13 @@ export default class Header extends React.Component<any, any> {
         let { appStore } = this.props;
 
         return (
-            <SlideIn if={true} fixed from={"top"}>
-                <Toolbar block className={this.props.appStore.mobile ? "ps40 pt40" : "ps100 pt40"}>
+            <Open overflow className="z5" if={appStore.homeSlideIndex === 0} openToHeight="60px">
+                <Toolbar block className={this.props.appStore.mobile ? "ps20 ptb10 r-shadow" : "ps100 pt40"}>
                     <img src="/static/imgs/logo.png" />
                     <Button onClick={this.toggleNightMode.bind(this)} simple right icon="moon-o"></Button>
                     <Button icon="comment" simple advanced checked={this.props.appStore.scrollState} right href="#contact" ></Button>
                 </Toolbar>
-            </SlideIn >
+            </Open>
         )
     }
 }

@@ -509,15 +509,6 @@ h2.light{
 
 
 @media screen and (max-width: 680px) {
-	h2.text-left{
-        font-size: 20px !important;
-        text-align: center !important;
-    }
-
-    h2.text-right{
-        font-size: 20px !important;
-        text-align: center !important;
-    }
 
     .feat-img-1,
     .feat-img-3 {
@@ -777,6 +768,20 @@ h2.light{
 
 
 
+.shit{
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    font-size: 22px !important;
+    text-align: center !important;
+    color: #686868;
+    font-weight: 100;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    bottom:20px;
+    padding: 10px
+}
 
 
 
@@ -786,8 +791,14 @@ h2.light{
 
 
 
-
-
+.phone, .donut{
+    text-align: center !important;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
 
 
 
@@ -895,23 +906,6 @@ h2.light{
     opacity: 1;
 }
 
-@media screen and (max-width : 500px) {
-    .lime{
-        text-align: center !important;
-        margin: 0 auto;
-        position: absolute;
-        right: -0;
-        left:0;
-        margin:auto;
-    }
-
-    .section > .r-Layer{
-        height:100%;
-        overflow: hidden;
-        width:100%;
-    }
-}
-
 #contact-btn{
     height: 58px;
     width: 306px;
@@ -928,4 +922,202 @@ h2.light{
 
 #contact-btn.s-0{
     display: block;
+}
+
+#orange-wave {
+    background: transparent url(https://www.saltlending.com//sites/all/themes/salt/images/orange_wave.svg) no-repeat top center;
+    background-size: cover;
+    width: 100%;
+    height: 717px;
+    position: absolute;
+    left: 0;
+    bottom: -500px;
+    -webkit-animation-delay: 1s;
+}
+
+#blue-wave {
+    background: transparent url('/static/imgs/green.svg') no-repeat top center;
+    background-size: cover;
+    width: 100%;
+    height: 801px;
+    position: absolute;
+    left: 0;
+    bottom: -300px;
+    -webkit-animation-delay: 0.8s;
+}
+
+#green-wave{
+    background: transparent url(https://www.saltlending.com//sites/all/themes/salt/images/green_wave.svg) no-repeat top center;
+    background-size: cover;
+    width: 100%;
+    height: 1165px;
+    position: absolute;
+    left: 0;
+    bottom: -850px;
+    -webkit-animation-delay: 0.5s;
+}
+
+#top{
+    padding: 40px 0;
+    color: #fff;
+    position: relative;
+    height: auto;
+    overflow: hidden;
+    z-index:0;
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height: 100%;
+    opacity: 0;
+    display: none;
+}
+
+#top.slide-slide-0 {
+    display: block;
+    opacity: 1;
+}
+
+.r-shadow{
+    -webkit-box-shadow: 0 0 4px 1px rgba(0,0,0,.01), 0 3px 24px rgba(48,51,51,.09);
+    box-shadow: 0 0 4px 1px rgba(0,0,0,.01), 0 3px 24px rgba(48,51,51,.09);
+    z-index: 8 !important;
+}
+
+
+@media screen and (max-width : 500px) {
+    .lime{
+        text-align: center !important;
+        margin: 0 auto;
+        position: absolute;
+        right: -0;
+        left:0;
+        margin:auto;
+    }
+
+    .section > .r-Layer{
+        height:100%;
+        overflow: hidden;
+        width:100%;
+    }
+
+    .slide{
+        display: none;
+    }
+
+    .slide-1-overlay,
+    .slide-2-overlay,
+    .slide-3-overlay,
+    .slide-4-overlay{
+        display: none;
+    }
+
+    .super{
+        font-size: 24px;
+        line-height: 30px;
+        height:35px !important;
+    
+    }
+
+    h2.light {
+        font-size: 19px !important;
+        text-align: center !important;
+    }
+
+    .lime{
+        top:0;
+        bottom:-80px;
+    }
+
+    #contact-btn {
+        height: 45px;
+        width: 238px;
+        display: block;
+        z-index: 5;
+        position: absolute;
+        top: 0;
+        bottom: auto;
+        margin: auto;
+        left: 0;
+        top: 123px;
+        display: none;
+        right: 0;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width : 350px) {
+    .lime{
+        text-align: center !important;
+        margin: 0 auto;
+        position: absolute;
+        right: -0;
+        left:0;
+        margin:auto;
+    }
+
+    .section > .r-Layer{
+        height:100%;
+        overflow: hidden;
+        width:100%;
+    }
+
+    .slide{
+        display: none;
+    }
+
+    .slide-1-overlay,
+    .slide-2-overlay,
+    .slide-3-overlay,
+    .slide-4-overlay{
+        display: none;
+    }
+
+    .super{
+        font-size: 22px;
+        line-height: 30px;
+        height:35px !important;
+    
+    }
+
+    h2.light {
+        font-size: 19px !important;
+        text-align: center !important;
+    }
+
+    .lime{
+        top:0;
+        width:250px;
+        height:250px;
+        bottom:-100px;
+    }
+
+    .phone{
+        width:50%;
+    }
+
+}
+
+
+#orange-wave{
+    display: none;
 }
