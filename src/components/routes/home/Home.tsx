@@ -10,7 +10,7 @@ import MailchimpSubscribe from "react-mailchimp-subscribe"
 
 const url = "//facebook.us12.list-manage.com/subscribe/post?u=06d510slide-37ba8deb24b42362c3&amp;id=6c82208505";
 
-import { SectionsContainer, Section } from 'react-fullpage';
+import { Scroller, Section } from 'react-fully-scrolled';
 
 let options = {
     sectionClassName: 'section',
@@ -32,7 +32,8 @@ export default class Home extends React.Component<any, any> {
     constructor(props) {
         super(props);
         this.state = {
-            index: "slide-0"
+            index: "slide-0",
+            indexa: 0
         }
     }
 
@@ -50,21 +51,48 @@ export default class Home extends React.Component<any, any> {
     componentDidMount() {
         let appStore = this.props.appStore;
         // appStore.menu = true;
+
+        document.ontouchmove = function (ev) {
+            ev.preventDefault();
+        }
     }
 
     onChange(key, value) {
         this.props.contactStore.onChange(value, key);
     }
 
-    onSlideLeave(anchorLink, index, slideIndex, direction, nextSlideIndex) {
-        console.log(anchorLink);
+    onSlideLeave(a, page) {
+        console.log(page);
+        let pagea = page - 1;
         this.setState({
-            index: "slide-" + anchorLink.activeSection.toString()
+            index: "slide-" + pagea.toString(),
+            indexa: pagea
         }, () => {
             console.log(this.state.index)
         })
 
-        this.props.appStore.gotoHomeSlideIndex(anchorLink.activeSection);
+        this.props.appStore.gotoHomeSlideIndex(pagea);
+    }
+
+    onSlideEnter(page) {
+        console.log(page);
+        let pagea = page - 1;
+        this.setState({
+            index: "slide-" + pagea.toString()
+        }, () => {
+            console.log(this.state.index)
+        })
+
+        this.props.appStore.gotoHomeSlideIndex(pagea);
+    }
+
+    gotoSlide() {
+        this.setState({
+            indexa: 3,
+            index: "slide-3"
+        })
+
+        this.props.appStore.gotoHomeSlideIndex(3);
     }
 
     render() {
@@ -75,79 +103,77 @@ export default class Home extends React.Component<any, any> {
         return (
             <Default>
                 <Layer fill flex overflow>
+                    <Layer className="z5" fill flex>
+                        <Scroller page={this.state.indexa} curPage={this.state.indexa} isEnabled={true} onBeforeScroll={this.onSlideLeave.bind(this)}>
+                            <Section>
+                                <Layer fill={mobile} flexCenter className={!mobile ? "text-right h100 w500px pull-right mr50" : null}>
+                                    <img width={mobile ? "" : "500"} height={mobile ? "329" : "494"} className="text-right lime animated fadeIn" src="/static/imgs/lime.png" />
+                                </Layer>
+                            </Section>
+                            <Section>
+                                <Layer fill={mobile} flexCenter className={!mobile ? "text-left h100 w500px pull-left ml50" : null}>
+                                    <img width={!mobile ? "350" : null} height={!mobile ? "600" : null} className="text-left phone" src={mobile ? "/static/imgs/phone1.png" : "/static/imgs/phone.png"} />
+                                </Layer>
+                            </Section>
+                            <Section>
+                                <Layer fill={mobile} flexCenter className={!mobile ? "text-right h100 w500px pull-right mr50" : null}>
+                                    <img width={mobile ? "" : "500"} height={mobile ? "329" : "494"} className="text-right donut" src="/static/imgs/candyo.png" />
+                                </Layer>
+                            </Section>
+                            <Section>
+                                <Layer flex fill flexCenter={!mobile} className={mobile ? "p10" : "ps100"}>
+                                    <MailchimpSubscribe
+                                        url={url}
+                                        render={({ subscribe, status, message }) => (
 
-                    <SectionsContainer {...options} scrollCallback={this.onSlideLeave.bind(this)}>
-                        <Section>
-                            <Layer flexCenter className={!mobile ? "text-right h100 w500px pull-right mr50" : null}>
-                                <img width={mobile ? "" : "500"} height={mobile ? "329" : "494"} className="text-right lime animated fadeIn" src="/static/imgs/lime.png" />
-                            </Layer>
-                        </Section>
-                        <Section>
-                            <Layer flexCenter className={!mobile ? "text-left h100 w500px pull-left ml50" : null}>
-                                <img width={!mobile ? "350" : null} height={!mobile ? "600" : null} className="text-left phone" src={mobile ? "/static/imgs/phone1.png" : "/static/imgs/phone.png"} />
-                            </Layer>
-                        </Section>
-                        <Section>
-                            <Layer flexCenter className={!mobile ? "text-right h100 w500px pull-right mr50" : null}>
-                                <img width={mobile ? "" : "500"} height={mobile ? "329" : "494"} className="text-right donut" src="/static/imgs/candyo.png" />
-                            </Layer>
-                        </Section>
-
-                        <Section>
-                            <Layer flex fill flexCenter={!mobile} className={mobile ? "p10" : "ps100"}>
-                                <MailchimpSubscribe
-                                    url={url}
-                                    render={({ subscribe, status, message }) => (
-
-                                        <Layer flex>
-                                            <Layer flexCenter className={status !== "sending" && status !== "success" ? "h100px w100 m0auto" : "h100 w100 m0auto"}>
-                                                {status !== "sending" && status !== "success" ? <div className="animated fadeInUp"> <h2 className="super text-left mb20">{mobile ? "" : "Let's get started!"}<strong style={{ color: '#00af60' }}>Contact us</strong></h2></div> : <div />}
-                                                {status === "sending" ? <div className="animated fadeInUp"><h2 className="super text-left mb20"><i className="fa fa-circle-o-notch fa-spin" /> Submitting <strong style={{ color: '#00af60' }}>form</strong></h2></div> : <div />}
-                                                {status === "success" ? <div className="animated fadeInUp"><h2 className="super text-left mb20">Sent!<strong style={{ color: '#00af60' }}> follow us =)</strong></h2></div> : <div />}
-                                                {status === "success" ?
-                                                    <Toolbar className="mt20 text-left posabs">
-                                                        <Emerge>
-                                                            <div />
-                                                            <div className="dinblock"><Button size="xlarge" className="floatL " simple icon="facebook" /></div>
-                                                            <div className="dinblock"><Button size="xlarge" className="floatL " simple icon="linkedin" /></div>
-                                                            <div className="dinblock"><Button size="xlarge" className="floatL " simple icon="twitter" /></div>
-                                                        </Emerge>
-                                                    </Toolbar> : <div />}
-
-                                            </Layer>
-                                            <Layer flexCenter={!mobile} className={status !== "sending" && status !== "success" ? mobile ? "h100" : "ptb40 h100" : "ptb0 h0"}>
-                                                <Layer className="w100 text-center m0auto">
-                                                    <Open openToHeight={'300px'} if={status !== "sending" && status !== "success"} className={""}>
-                                                        <form>
-                                                            <Toolbar block flex={!mobile} vertical={mobile}>
-                                                                <Input onChange={this.onChange.bind(this, 'FNAME')} theme="success" advanced material block size={this.props.appStore.mobile ? "xlarge" : "xlarge"} title="Full name" className={mobile ? "mb20 " : "mr20"} />
-                                                                <Input onChange={this.onChange.bind(this, 'EMAIL')} theme="success" advanced material block size={this.props.appStore.mobile ? "xlarge" : "xlarge"} title="Email" />
-                                                            </Toolbar>
-                                                            <Toolbar block flex={!mobile} vertical={mobile} spacing className="mt20">
-                                                                <Input onChange={this.onChange.bind(this, 'PHONE')} theme="success" advanced material block size={this.props.appStore.mobile ? "xlarge" : "xlarge"} title="Phone Number" className={mobile ? "mb20 " : "mr20"} />
-                                                                <Input onChange={this.onChange.bind(this, 'COMPANY')} theme="success" advanced material block size={this.props.appStore.mobile ? "xlarge" : "xlarge"} title="Company" />
-                                                            </Toolbar>
-                                                            <Toolbar block flex={!mobile} vertical={mobile} spacing className="mt20">
-                                                                <Input onChange={this.onChange.bind(this, 'IDEA')} theme="success" advanced material block size={this.props.appStore.mobile ? "xlarge" : "xlarge"} title="Idea" />
-                                                            </Toolbar>
-                                                            <Toolbar block spacing className="mt20">
-                                                                <Button submit disabled={status === "success"} advanced onClick={this.submitForm.bind(this, subscribe)} theme="success" right size={this.props.appStore.mobile ? "xlarge" : "xlarge"} >Submit Your Message</Button>
-                                                            </Toolbar>
-                                                        </form>
-                                                    </Open>
+                                            <Layer flex>
+                                                <Layer flexCenter className={status !== "sending" && status !== "success" ? "h100px w100 m0auto" : "h100 w100 m0auto"}>
+                                                    {status !== "sending" && status !== "success" ? <div className="animated fadeInUp"> <h2 className="super text-left mb20">{mobile ? "" : "Let's get started!"}<strong style={{ color: '#00af60' }}>Contact us</strong></h2></div> : <div />}
+                                                    {status === "sending" ? <div className="animated fadeInUp"><h2 className="super text-left mb20"><i className="fa fa-circle-o-notch fa-spin" /> Submitting <strong style={{ color: '#00af60' }}>form</strong></h2></div> : <div />}
+                                                    {status === "success" ? <div className="animated fadeInUp"><h2 className="super text-left mb20">Sent!<strong style={{ color: '#00af60' }}> follow us =)</strong></h2></div> : <div />}
+                                                    {status === "success" ?
+                                                        <Toolbar className="mt20 text-left posabs">
+                                                            <Emerge>
+                                                                <div />
+                                                                <div className="dinblock"><Button size="xlarge" className="floatL " simple icon="facebook" /></div>
+                                                                <div className="dinblock"><Button size="xlarge" className="floatL " simple icon="linkedin" /></div>
+                                                                <div className="dinblock"><Button size="xlarge" className="floatL " simple icon="twitter" /></div>
+                                                            </Emerge>
+                                                        </Toolbar> : <div />}
 
                                                 </Layer>
+                                                <Layer flexCenter={!mobile} className={status !== "sending" && status !== "success" ? mobile ? "h100" : "ptb40 h100" : "ptb0 h0"}>
+                                                    <Layer className="w100 text-center m0auto">
+                                                        <Open openToHeight={'300px'} if={status !== "sending" && status !== "success"} className={""}>
+                                                            <form>
+                                                                <Toolbar block flex={!mobile} vertical={mobile}>
+                                                                    <Input onChange={this.onChange.bind(this, 'FNAME')} theme="success" advanced material block size={this.props.appStore.mobile ? "xlarge" : "xlarge"} title="Full name" className={mobile ? "mb20 " : "mr20"} />
+                                                                    <Input onChange={this.onChange.bind(this, 'EMAIL')} theme="success" advanced material block size={this.props.appStore.mobile ? "xlarge" : "xlarge"} title="Email" />
+                                                                </Toolbar>
+                                                                <Toolbar block flex={!mobile} vertical={mobile} spacing className="mt20">
+                                                                    <Input onChange={this.onChange.bind(this, 'PHONE')} theme="success" advanced material block size={this.props.appStore.mobile ? "xlarge" : "xlarge"} title="Phone Number" className={mobile ? "mb20 " : "mr20"} />
+                                                                    <Input onChange={this.onChange.bind(this, 'COMPANY')} theme="success" advanced material block size={this.props.appStore.mobile ? "xlarge" : "xlarge"} title="Company" />
+                                                                </Toolbar>
+                                                                <Toolbar block flex={!mobile} vertical={mobile} spacing className="mt20">
+                                                                    <Input onChange={this.onChange.bind(this, 'IDEA')} theme="success" advanced material block size={this.props.appStore.mobile ? "xlarge" : "xlarge"} title="Idea" />
+                                                                </Toolbar>
+                                                                <Toolbar block spacing className="mt20">
+                                                                    <Button submit disabled={status === "success"} advanced onClick={this.submitForm.bind(this, subscribe)} theme="success" right size={this.props.appStore.mobile ? "xlarge" : "xlarge"} >Submit Your Message</Button>
+                                                                </Toolbar>
+                                                            </form>
+                                                        </Open>
+
+                                                    </Layer>
+                                                </Layer>
                                             </Layer>
-                                        </Layer>
-                                    )}
-                                />
-                            </Layer>
-                        </Section>
+                                        )}
+                                    />
+                                </Layer>
+                            </Section>
+                        </Scroller>
+                    </Layer>
 
-
-                    </SectionsContainer>
-
-                    <a href="#contact" id="contact-btn" className={'s-' + this.props.appStore.homeSlideIndex} />
+                    <a onClick={this.gotoSlide.bind(this)} id="contact-btn" className={'s-' + this.props.appStore.homeSlideIndex} />
 
 
                     <Layer className={this.state.index + ' slide'} />
